@@ -5,20 +5,38 @@ from typing import Optional, List
 from .item import Item, ItemRarity
 from .enchantment import Enchantment, Gem
 
-
 class WeaponType(Enum):
     """Types of weapons available."""
     SWORD = "sword"
     BOW = "bow"
     SHIELD = "shield"
 
+class WeaponState:
+    def use(self) -> str:
+       pass
+
+#TODO: Have a medium state where weapon is damaged and deals less damage and breaks faster
+class WeaponUsableState(WeaponState):
+    def use(self) -> str:
+        """Attack with the weapon."""
+        self.durability -= 1
+        enchant_text = f" [{self.enchantment.type.value}]" if self.enchantment else ""
+        if self.durability == 0:
+            self.state = WeaponBrokenState()
+        else:
+            return f"⚔️  {self.name}{enchant_text} deals {self.get_total_damage()} damage! (Durability: {self.durability}/{self.get_total_durability()})"
+    
+class WeaponBrokenState(WeaponState):
+    def use(self):
+        return "Weapon is broken"
 
 @dataclass
 class Weapon(Item):
     """Base weapon class."""
     damage: int
     durability: int
-    weapon_type: WeaponType
+    state: WeaponState = WeaponUsableState()
+    weapon_type: WeaponType = WeaponType.SWORD
     enchantment: Optional[Enchantment] = None
     gems: List[Gem] = field(default_factory=list)
     special_ability: Optional[str] = None
@@ -39,15 +57,8 @@ class Weapon(Item):
             total += gem.bonus_durability
         return total
     
-    def use(self) -> str:
-        """Attack with the weapon."""
-        self.durability -= 1
-        enchant_text = f" [{self.enchantment.type.value}]" if self.enchantment else ""
-        return f"⚔️  {self.name}{enchant_text} deals {self.get_total_damage()} damage! (Durability: {self.durability}/{self.get_total_durability()})"
-    
-    def is_broken(self) -> bool:
-        """Check if weapon is broken."""
-        return self.durability <= 0
+    def use(self):
+        return self.state.use(self,)
     
     def get_full_description(self) -> str:
         """Get detailed weapon description."""

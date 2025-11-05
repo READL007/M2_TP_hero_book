@@ -1,3 +1,4 @@
+#TODO: implement with real monster entity 
 class Entity:
     def attack(self): pass
 

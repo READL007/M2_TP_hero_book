@@ -1,4 +1,12 @@
-""""Monster classes using Bridge pattern."""
+""""Monster classes using Bridge pattern.
+
+Monster classes separate the abstraction (Monster) from its implementation (MonsterVariant).
+
+Thanks to this pattern, we can create different monster types with various variants without creating a complex inheritance hierarchy.
+
+Without bridge pattern, we would need to create a class for each combination of monster type and variant, leading to a combinatorial explosion of classes.
+
+"""
 from .monster_variant import MonsterVariant
 
 class Monster:

@@ -1,8 +1,9 @@
 """Monster class using Bridge pattern."""
-from game.src.patterns.bridge.monster_variant import MonsterVariant
+from ..patterns.bridge.monster_variant import MonsterVariant
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
+#TODO: Implement different monster behaviors base on state
 @dataclass
 class Monster(ABC):
     """Abstract Monster class using Bridge pattern."""

@@ -11,6 +11,7 @@ from typing import Type
 from ...models.item import Item, ItemRarity
 from ...models.weapon import Weapon, Sword, Bow, Shield
 from ...models.potion import Potion, PotionEffect
+from ...models.key import Key
 
 
 class ItemFactory(ABC):
@@ -38,6 +39,7 @@ class CommonItemFactory(ItemFactory):
     Creates low-tier items suitable for beginning players:
     - Weapons: Basic weapons with low damage and durability
     - Potions: Basic healing potions with minimal effects
+    - Key : Basic key what could it open?
     """
     
     def create_weapon(self) -> Weapon:
@@ -56,6 +58,13 @@ class CommonItemFactory(ItemFactory):
             rarity=ItemRarity.COMMON,
             effect=PotionEffect.HEAL,
             power=20
+        )
+    
+    def create_key(self) -> Key:
+        """Create a common key."""
+        return Key(
+            name="Old Key",
+            rarity=ItemRarity.COMMON,
         )
 
 
@@ -79,6 +88,14 @@ class RareItemFactory(ItemFactory):
             effect=PotionEffect.STRENGTH,
             power=50
         )
+    
+    def create_key(self) -> Key:
+        """Create a rare key."""
+        return Key(
+            name="Silver Key",
+            rarity=ItemRarity.RARE,
+        )
+
 
 
 class LegendaryItemFactory(ItemFactory):
@@ -100,6 +117,13 @@ class LegendaryItemFactory(ItemFactory):
             rarity=ItemRarity.LEGENDARY,
             effect=PotionEffect.HEAL,
             power=999
+        )
+    
+    def create_key(self) -> Key:
+        """Create a legandary key."""
+        return Key(
+            name="Master Key",
+            rarity=ItemRarity.LEGENDARY,
         )
 
 

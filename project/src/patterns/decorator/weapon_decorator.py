@@ -1,3 +1,4 @@
+#TODO: implement with real item weapon
 class Weapon:
     def attack(self):
         return 10

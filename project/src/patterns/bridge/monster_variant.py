@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
+"""Monster variant implementations for Bridge pattern.
 
+Each variant defines specific attributes and behaviors for monsters.
+They are more or less powerfull and resistant depending on their color.
+"""
 class MonsterVariant(ABC):
     def __init__(self, color: str):
         self.color = color
@@ -16,8 +20,8 @@ class RedVariant(MonsterVariant):
 
 class BlueVariant(MonsterVariant):
     def __init__(self): super().__init__("blue")
-    def hp(self): return 75
-    def attack_power(self): return 15
+    def hp(self): return 15
+    def attack_power(self): return 50
 
 class WhiteVariant(MonsterVariant):
     def __init__(self): super().__init__("white")

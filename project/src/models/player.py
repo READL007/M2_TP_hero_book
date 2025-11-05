@@ -3,6 +3,7 @@
 from dataclasses import dataclass, field
 from typing import List
 from .weapon import Weapon
+from .item import Item
 
 @dataclass
 class Player:
@@ -20,6 +21,11 @@ class Player:
     def pick_weapon(self, weapon: Weapon) -> None:
         """Add a weapon to the player's inventory."""
         self.inventory.append(weapon)
+
+    def drop_item(self, observable, item: Item) -> None:
+        """Remove a weapon from the player's inventory."""
+        if item in self.inventory:
+            self.inventory.remove(item)
     
     def get_status(self) -> str:
         """Get current status of the player."""
